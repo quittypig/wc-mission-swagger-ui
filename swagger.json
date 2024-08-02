@@ -30,8 +30,8 @@
                }
             ],
             "responses":{
-               "403":{
-                  "description":"Forbidden",
+               "401":{
+                  "description":"Unauthorized",
                   "content":{
                      "*/*":{
                         "schema":{
@@ -50,16 +50,6 @@
                      }
                   }
                },
-               "409":{
-                  "description":"Conflict",
-                  "content":{
-                     "*/*":{
-                        "schema":{
-                           "$ref":"#/components/schemas/ApiResponseObject"
-                        }
-                     }
-                  }
-               },
                "400":{
                   "description":"Bad Request",
                   "content":{
@@ -70,8 +60,8 @@
                      }
                   }
                },
-               "404":{
-                  "description":"Not Found",
+               "409":{
+                  "description":"Conflict",
                   "content":{
                      "*/*":{
                         "schema":{
@@ -80,8 +70,18 @@
                      }
                   }
                },
-               "401":{
-                  "description":"Unauthorized",
+               "403":{
+                  "description":"Forbidden",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "404":{
+                  "description":"Not Found",
                   "content":{
                      "*/*":{
                         "schema":{
@@ -109,6 +109,7 @@
                "[미션]"
             ],
             "summary":"미션 신청 / 권한: [피시방]",
+            "description":"\n            - 403 / code: DISAVAILABLE_MISSION / message: 신청 기간이 아니거나 유효하지 않은 미션입니다.\n            - 409 / code: APPLIED_MISSION / message: 이미 신청한 미션입니다.\n        ",
             "operationId":"applyMission",
             "parameters":[
                {
@@ -122,8 +123,8 @@
                }
             ],
             "responses":{
-               "403":{
-                  "description":"Forbidden",
+               "401":{
+                  "description":"Unauthorized",
                   "content":{
                      "*/*":{
                         "schema":{
@@ -142,16 +143,6 @@
                      }
                   }
                },
-               "409":{
-                  "description":"Conflict",
-                  "content":{
-                     "*/*":{
-                        "schema":{
-                           "$ref":"#/components/schemas/ApiResponseObject"
-                        }
-                     }
-                  }
-               },
                "400":{
                   "description":"Bad Request",
                   "content":{
@@ -162,8 +153,8 @@
                      }
                   }
                },
-               "404":{
-                  "description":"Not Found",
+               "409":{
+                  "description":"APPLIED_MISSION",
                   "content":{
                      "*/*":{
                         "schema":{
@@ -172,8 +163,18 @@
                      }
                   }
                },
-               "401":{
-                  "description":"Unauthorized",
+               "403":{
+                  "description":"DISAVAILABLE_MISSION",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "404":{
+                  "description":"Not Found",
                   "content":{
                      "*/*":{
                         "schema":{
@@ -237,8 +238,8 @@
                }
             ],
             "responses":{
-               "403":{
-                  "description":"Forbidden",
+               "401":{
+                  "description":"Unauthorized",
                   "content":{
                      "*/*":{
                         "schema":{
@@ -257,16 +258,6 @@
                      }
                   }
                },
-               "409":{
-                  "description":"Conflict",
-                  "content":{
-                     "*/*":{
-                        "schema":{
-                           "$ref":"#/components/schemas/ApiResponseObject"
-                        }
-                     }
-                  }
-               },
                "400":{
                   "description":"Bad Request",
                   "content":{
@@ -277,8 +268,8 @@
                      }
                   }
                },
-               "404":{
-                  "description":"Not Found",
+               "409":{
+                  "description":"Conflict",
                   "content":{
                      "*/*":{
                         "schema":{
@@ -287,8 +278,18 @@
                      }
                   }
                },
-               "401":{
-                  "description":"Unauthorized",
+               "403":{
+                  "description":"Forbidden",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "404":{
+                  "description":"Not Found",
                   "content":{
                      "*/*":{
                         "schema":{
@@ -362,7 +363,9 @@
                      "ALREADY_ISSUED_COUPON",
                      "COUPON_COUNT_EMPTY",
                      "FILE_UPLOAD_FAILED",
-                     "POINT_NOT_ENOUGH"
+                     "POINT_NOT_ENOUGH",
+                     "APPLIED_MISSION",
+                     "DISAVAILABLE_MISSION"
                   ]
                },
                "message":{
@@ -523,12 +526,6 @@
                "sort":{
                   "$ref":"#/components/schemas/SortObject"
                },
-               "paged":{
-                  "type":"boolean"
-               },
-               "unpaged":{
-                  "type":"boolean"
-               },
                "pageNumber":{
                   "type":"integer",
                   "format":"int32"
@@ -536,6 +533,12 @@
                "pageSize":{
                   "type":"integer",
                   "format":"int32"
+               },
+               "paged":{
+                  "type":"boolean"
+               },
+               "unpaged":{
+                  "type":"boolean"
                }
             }
          },
@@ -545,10 +548,10 @@
                "empty":{
                   "type":"boolean"
                },
-               "unsorted":{
+               "sorted":{
                   "type":"boolean"
                },
-               "sorted":{
+               "unsorted":{
                   "type":"boolean"
                }
             }
