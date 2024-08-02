@@ -30,6 +30,66 @@
                }
             ],
             "responses":{
+               "403":{
+                  "description":"Forbidden",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "500":{
+                  "description":"Internal Server Error",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "409":{
+                  "description":"Conflict",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "400":{
+                  "description":"Bad Request",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "404":{
+                  "description":"Not Found",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "401":{
+                  "description":"Unauthorized",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
                "200":{
                   "description":"OK",
                   "content":{
@@ -62,6 +122,66 @@
                }
             ],
             "responses":{
+               "403":{
+                  "description":"Forbidden",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "500":{
+                  "description":"Internal Server Error",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "409":{
+                  "description":"Conflict",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "400":{
+                  "description":"Bad Request",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "404":{
+                  "description":"Not Found",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "401":{
+                  "description":"Unauthorized",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
                "200":{
                   "description":"OK",
                   "content":{
@@ -80,9 +200,19 @@
             "tags":[
                "[미션]"
             ],
-            "summary":"미션 조회 / 권한: [모바일][피시방]",
+            "summary":"미션 조회 / 권한: [피시방]",
+            "description":"\n            - Token이 없을 경우 pcbangId 필수\n            - Token이 있을 경우 pcbangId는 사용되지 않음\n        ",
             "operationId":"getMission",
             "parameters":[
+               {
+                  "name":"pcbangId",
+                  "in":"query",
+                  "required":false,
+                  "schema":{
+                     "type":"string",
+                     "format":"uuid"
+                  }
+               },
                {
                   "name":"page",
                   "in":"query",
@@ -107,6 +237,66 @@
                }
             ],
             "responses":{
+               "403":{
+                  "description":"Forbidden",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "500":{
+                  "description":"Internal Server Error",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "409":{
+                  "description":"Conflict",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "400":{
+                  "description":"Bad Request",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "404":{
+                  "description":"Not Found",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "401":{
+                  "description":"Unauthorized",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
                "200":{
                   "description":"OK",
                   "content":{
@@ -180,6 +370,20 @@
                }
             }
          },
+         "ApiResponseObject":{
+            "required":[
+               "summary"
+            ],
+            "type":"object",
+            "properties":{
+               "summary":{
+                  "$ref":"#/components/schemas/ApiResponseHeader"
+               },
+               "body":{
+                  "type":"object"
+               }
+            }
+         },
          "ApiResponseUnit":{
             "required":[
                "summary"
@@ -213,7 +417,7 @@
          },
          "MissionResponse":{
             "required":[
-               "endDateTime",
+               "expiredDateTime",
                "game",
                "missionId",
                "reward",
@@ -244,14 +448,6 @@
                "reward":{
                   "type":"string"
                },
-               "startDateTime":{
-                  "type":"string",
-                  "format":"date-time"
-               },
-               "endDateTime":{
-                  "type":"string",
-                  "format":"date-time"
-               },
                "status":{
                   "type":"string",
                   "enum":[
@@ -260,6 +456,14 @@
                      "COMPLETE",
                      "FAIL"
                   ]
+               },
+               "startDateTime":{
+                  "type":"string",
+                  "format":"date-time"
+               },
+               "expiredDateTime":{
+                  "type":"string",
+                  "format":"date-time"
                }
             }
          },
