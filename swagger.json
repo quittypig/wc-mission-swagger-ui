@@ -17,6 +17,7 @@
                "[미션]"
             ],
             "summary":"미션 완료 / 권한: [피시방]",
+            "description":"\n            - request.body.encData: 미션 신청 response.body.missionApplyId를 AES-256-CBC 암호화하여 호출 요망.(secretKey, iv는 별도로 전달 예정)\n            - response.body.isComplete: true(미션 완료), false(미션 미완료). 최초 완료시에만 보상이 획득됨.\n            - status: 403 / code: DISAVAILABLE_MISSION / message: 미션 완료 기간이 아니거나 유효하지 않은 미션입니다.\n            - status: 403 / code: UNVERIFIED_MISSION / message: 미션 검증에 실패했습니다.\n                => encData 복호화 실패 및 불일치할 경우\n        ",
             "operationId":"completeMission",
             "parameters":[
                {
@@ -29,39 +30,19 @@
                   }
                }
             ],
-            "responses":{
-               "401":{
-                  "description":"Unauthorized",
-                  "content":{
-                     "*/*":{
-                        "schema":{
-                           "$ref":"#/components/schemas/ApiResponseObject"
-                        }
+            "requestBody":{
+               "content":{
+                  "application/json":{
+                     "schema":{
+                        "$ref":"#/components/schemas/MissionCompleteRequest"
                      }
                   }
                },
+               "required":true
+            },
+            "responses":{
                "500":{
                   "description":"Internal Server Error",
-                  "content":{
-                     "*/*":{
-                        "schema":{
-                           "$ref":"#/components/schemas/ApiResponseObject"
-                        }
-                     }
-                  }
-               },
-               "400":{
-                  "description":"Bad Request",
-                  "content":{
-                     "*/*":{
-                        "schema":{
-                           "$ref":"#/components/schemas/ApiResponseObject"
-                        }
-                     }
-                  }
-               },
-               "409":{
-                  "description":"Conflict",
                   "content":{
                      "*/*":{
                         "schema":{
@@ -80,61 +61,18 @@
                      }
                   }
                },
+               "409":{
+                  "description":"Conflict",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
                "404":{
                   "description":"Not Found",
-                  "content":{
-                     "*/*":{
-                        "schema":{
-                           "$ref":"#/components/schemas/ApiResponseObject"
-                        }
-                     }
-                  }
-               },
-               "200":{
-                  "description":"OK",
-                  "content":{
-                     "*/*":{
-                        "schema":{
-                           "$ref":"#/components/schemas/ApiResponseUnit"
-                        }
-                     }
-                  }
-               }
-            }
-         }
-      },
-      "/mission/{missionId}/apply":{
-         "post":{
-            "tags":[
-               "[미션]"
-            ],
-            "summary":"미션 신청 / 권한: [피시방]",
-            "description":"\n            - 미션 신청 가능 기간에 이미 신청한 미션을 중복 신청한 경우 status: 200, 기 생성된 missionApplyId가 내려감\n            - status: 403 / code: DISAVAILABLE_MISSION / message: 신청 기간이 아니거나 유효하지 않은 미션입니다.\n        ",
-            "operationId":"applyMission",
-            "parameters":[
-               {
-                  "name":"missionId",
-                  "in":"path",
-                  "required":true,
-                  "schema":{
-                     "type":"string",
-                     "format":"uuid"
-                  }
-               }
-            ],
-            "responses":{
-               "401":{
-                  "description":"Unauthorized",
-                  "content":{
-                     "*/*":{
-                        "schema":{
-                           "$ref":"#/components/schemas/ApiResponseObject"
-                        }
-                     }
-                  }
-               },
-               "500":{
-                  "description":"Internal Server Error",
                   "content":{
                      "*/*":{
                         "schema":{
@@ -153,8 +91,51 @@
                      }
                   }
                },
-               "409":{
-                  "description":"Conflict",
+               "401":{
+                  "description":"Unauthorized",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "200":{
+                  "description":"OK",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseMissionApplyResponse"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/mission/{missionId}/apply":{
+         "post":{
+            "tags":[
+               "[미션]"
+            ],
+            "summary":"미션 신청 / 권한: [피시방]",
+            "description":"\n            - 미션 신청 가능 기간에 이미 신청한 미션을 중복 신청한 경우 status: 200, 기 생성된 missionApplyId가 내려감. \n              response.body.missionApplyId: 미션 완료 request.body.encData에 AES-256-CBC 암호화하여 호출 요망.(secretKey, iv는 별도로 전달 예정)\n            - response.body.isComplete: true(미션 완료), false(미션 미완료). 최초 완료시에만 보상이 획득됨.\n            - status: 403 / code: DISAVAILABLE_MISSION / message: 신청 기간이 아니거나 유효하지 않은 미션입니다.\n        ",
+            "operationId":"applyMission",
+            "parameters":[
+               {
+                  "name":"missionId",
+                  "in":"path",
+                  "required":true,
+                  "schema":{
+                     "type":"string",
+                     "format":"uuid"
+                  }
+               }
+            ],
+            "responses":{
+               "500":{
+                  "description":"Internal Server Error",
                   "content":{
                      "*/*":{
                         "schema":{
@@ -173,8 +154,38 @@
                      }
                   }
                },
+               "409":{
+                  "description":"Conflict",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
                "404":{
                   "description":"Not Found",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "400":{
+                  "description":"Bad Request",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "401":{
+                  "description":"Unauthorized",
                   "content":{
                      "*/*":{
                         "schema":{
@@ -238,38 +249,8 @@
                }
             ],
             "responses":{
-               "401":{
-                  "description":"Unauthorized",
-                  "content":{
-                     "*/*":{
-                        "schema":{
-                           "$ref":"#/components/schemas/ApiResponseObject"
-                        }
-                     }
-                  }
-               },
                "500":{
                   "description":"Internal Server Error",
-                  "content":{
-                     "*/*":{
-                        "schema":{
-                           "$ref":"#/components/schemas/ApiResponseObject"
-                        }
-                     }
-                  }
-               },
-               "400":{
-                  "description":"Bad Request",
-                  "content":{
-                     "*/*":{
-                        "schema":{
-                           "$ref":"#/components/schemas/ApiResponseObject"
-                        }
-                     }
-                  }
-               },
-               "409":{
-                  "description":"Conflict",
                   "content":{
                      "*/*":{
                         "schema":{
@@ -288,8 +269,38 @@
                      }
                   }
                },
+               "409":{
+                  "description":"Conflict",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
                "404":{
                   "description":"Not Found",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "400":{
+                  "description":"Bad Request",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "401":{
+                  "description":"Unauthorized",
                   "content":{
                      "*/*":{
                         "schema":{
@@ -364,7 +375,8 @@
                      "COUPON_COUNT_EMPTY",
                      "FILE_UPLOAD_FAILED",
                      "POINT_NOT_ENOUGH",
-                     "DISAVAILABLE_MISSION"
+                     "DISAVAILABLE_MISSION",
+                     "UNVERIFIED_MISSION"
                   ]
                },
                "message":{
@@ -386,22 +398,16 @@
                }
             }
          },
-         "ApiResponseUnit":{
+         "MissionCompleteRequest":{
             "required":[
-               "summary"
+               "encData"
             ],
             "type":"object",
             "properties":{
-               "summary":{
-                  "$ref":"#/components/schemas/ApiResponseHeader"
-               },
-               "body":{
-                  "$ref":"#/components/schemas/Unit"
+               "encData":{
+                  "type":"string"
                }
             }
-         },
-         "Unit":{
-            "type":"object"
          },
          "ApiResponseMissionApplyResponse":{
             "required":[
