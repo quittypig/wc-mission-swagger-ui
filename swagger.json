@@ -109,7 +109,7 @@
                "[미션]"
             ],
             "summary":"미션 신청 / 권한: [피시방]",
-            "description":"\n            - 403 / code: DISAVAILABLE_MISSION / message: 신청 기간이 아니거나 유효하지 않은 미션입니다.\n            - 409 / code: APPLIED_MISSION / message: 이미 신청한 미션입니다.\n        ",
+            "description":"\n            - 미션 신청 가능 기간에 이미 신청한 미션을 중복 신청한 경우 status: 200, 기 생성된 missionApplyId가 내려감\n            - status: 403 / code: DISAVAILABLE_MISSION / message: 신청 기간이 아니거나 유효하지 않은 미션입니다.\n        ",
             "operationId":"applyMission",
             "parameters":[
                {
@@ -154,7 +154,7 @@
                   }
                },
                "409":{
-                  "description":"APPLIED_MISSION",
+                  "description":"Conflict",
                   "content":{
                      "*/*":{
                         "schema":{
@@ -188,7 +188,7 @@
                   "content":{
                      "*/*":{
                         "schema":{
-                           "$ref":"#/components/schemas/ApiResponseUnit"
+                           "$ref":"#/components/schemas/ApiResponseMissionApplyResponse"
                         }
                      }
                   }
@@ -364,7 +364,6 @@
                      "COUPON_COUNT_EMPTY",
                      "FILE_UPLOAD_FAILED",
                      "POINT_NOT_ENOUGH",
-                     "APPLIED_MISSION",
                      "DISAVAILABLE_MISSION"
                   ]
                },
@@ -403,6 +402,36 @@
          },
          "Unit":{
             "type":"object"
+         },
+         "ApiResponseMissionApplyResponse":{
+            "required":[
+               "summary"
+            ],
+            "type":"object",
+            "properties":{
+               "summary":{
+                  "$ref":"#/components/schemas/ApiResponseHeader"
+               },
+               "body":{
+                  "$ref":"#/components/schemas/MissionApplyResponse"
+               }
+            }
+         },
+         "MissionApplyResponse":{
+            "required":[
+               "isComplete",
+               "missionApplyId"
+            ],
+            "type":"object",
+            "properties":{
+               "missionApplyId":{
+                  "type":"string",
+                  "format":"uuid"
+               },
+               "isComplete":{
+                  "type":"boolean"
+               }
+            }
          },
          "ApiResponsePageMissionResponse":{
             "required":[
@@ -473,13 +502,13 @@
          "PageMissionResponse":{
             "type":"object",
             "properties":{
-               "totalPages":{
-                  "type":"integer",
-                  "format":"int32"
-               },
                "totalElements":{
                   "type":"integer",
                   "format":"int64"
+               },
+               "totalPages":{
+                  "type":"integer",
+                  "format":"int32"
                },
                "first":{
                   "type":"boolean"
@@ -504,12 +533,12 @@
                "sort":{
                   "$ref":"#/components/schemas/SortObject"
                },
-               "pageable":{
-                  "$ref":"#/components/schemas/PageableObject"
-               },
                "numberOfElements":{
                   "type":"integer",
                   "format":"int32"
+               },
+               "pageable":{
+                  "$ref":"#/components/schemas/PageableObject"
                },
                "empty":{
                   "type":"boolean"
@@ -526,6 +555,12 @@
                "sort":{
                   "$ref":"#/components/schemas/SortObject"
                },
+               "paged":{
+                  "type":"boolean"
+               },
+               "unpaged":{
+                  "type":"boolean"
+               },
                "pageNumber":{
                   "type":"integer",
                   "format":"int32"
@@ -533,12 +568,6 @@
                "pageSize":{
                   "type":"integer",
                   "format":"int32"
-               },
-               "paged":{
-                  "type":"boolean"
-               },
-               "unpaged":{
-                  "type":"boolean"
                }
             }
          },
@@ -548,10 +577,10 @@
                "empty":{
                   "type":"boolean"
                },
-               "sorted":{
+               "unsorted":{
                   "type":"boolean"
                },
-               "unsorted":{
+               "sorted":{
                   "type":"boolean"
                }
             }
