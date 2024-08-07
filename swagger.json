@@ -41,8 +41,8 @@
                "required":true
             },
             "responses":{
-               "403":{
-                  "description":"Forbidden",
+               "401":{
+                  "description":"Unauthorized",
                   "content":{
                      "*/*":{
                         "schema":{
@@ -61,16 +61,6 @@
                      }
                   }
                },
-               "409":{
-                  "description":"Conflict",
-                  "content":{
-                     "*/*":{
-                        "schema":{
-                           "$ref":"#/components/schemas/ApiResponseObject"
-                        }
-                     }
-                  }
-               },
                "400":{
                   "description":"Bad Request",
                   "content":{
@@ -81,8 +71,8 @@
                      }
                   }
                },
-               "404":{
-                  "description":"Not Found",
+               "409":{
+                  "description":"Conflict",
                   "content":{
                      "*/*":{
                         "schema":{
@@ -91,8 +81,18 @@
                      }
                   }
                },
-               "401":{
-                  "description":"Unauthorized",
+               "403":{
+                  "description":"Forbidden",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "404":{
+                  "description":"Not Found",
                   "content":{
                      "*/*":{
                         "schema":{
@@ -134,8 +134,8 @@
                }
             ],
             "responses":{
-               "403":{
-                  "description":"DISAVAILABLE_MISSION",
+               "401":{
+                  "description":"Unauthorized",
                   "content":{
                      "*/*":{
                         "schema":{
@@ -154,16 +154,6 @@
                      }
                   }
                },
-               "409":{
-                  "description":"Conflict",
-                  "content":{
-                     "*/*":{
-                        "schema":{
-                           "$ref":"#/components/schemas/ApiResponseObject"
-                        }
-                     }
-                  }
-               },
                "400":{
                   "description":"Bad Request",
                   "content":{
@@ -174,8 +164,8 @@
                      }
                   }
                },
-               "404":{
-                  "description":"Not Found",
+               "409":{
+                  "description":"Conflict",
                   "content":{
                      "*/*":{
                         "schema":{
@@ -184,8 +174,18 @@
                      }
                   }
                },
-               "401":{
-                  "description":"Unauthorized",
+               "403":{
+                  "description":"DISAVAILABLE_MISSION",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "404":{
+                  "description":"Not Found",
                   "content":{
                      "*/*":{
                         "schema":{
@@ -213,7 +213,7 @@
                "[미션]"
             ],
             "summary":"미션 조회 / 권한: [피시방]",
-            "description":"\n            - Token이 없을 경우 pcbangId 필수\n            - Token이 있을 경우 pcbangId는 사용되지 않음\n            - response.body.content[].data: type에 따라 다르게 내려감.\n                ex: WINNING_STREAK(연승): { \"win\": 1 }\n                ex: CUMULATIVE_WIN(누적): { \"win\": 3 }\n        ",
+            "description":"\n            - Token이 없을 경우 pcbangId 필수\n            - Token이 있을 경우 pcbangId는 사용되지 않음\n            - response.body.content[].data: type에 따라 다르게 내려감.\n                ex: WINNING_STREAK(연승): { \"win\": 1 }\n        ",
             "operationId":"getMission",
             "parameters":[
                {
@@ -249,8 +249,8 @@
                }
             ],
             "responses":{
-               "403":{
-                  "description":"Forbidden",
+               "401":{
+                  "description":"Unauthorized",
                   "content":{
                      "*/*":{
                         "schema":{
@@ -269,16 +269,6 @@
                      }
                   }
                },
-               "409":{
-                  "description":"Conflict",
-                  "content":{
-                     "*/*":{
-                        "schema":{
-                           "$ref":"#/components/schemas/ApiResponseObject"
-                        }
-                     }
-                  }
-               },
                "400":{
                   "description":"Bad Request",
                   "content":{
@@ -289,8 +279,8 @@
                      }
                   }
                },
-               "404":{
-                  "description":"Not Found",
+               "409":{
+                  "description":"Conflict",
                   "content":{
                      "*/*":{
                         "schema":{
@@ -299,8 +289,18 @@
                      }
                   }
                },
-               "401":{
-                  "description":"Unauthorized",
+               "403":{
+                  "description":"Forbidden",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "404":{
+                  "description":"Not Found",
                   "content":{
                      "*/*":{
                         "schema":{
@@ -372,7 +372,7 @@
                      "NOT_AVAILABLE_COUPON",
                      "ALREADY_SHARED_COUPON",
                      "ALREADY_ISSUED_COUPON",
-                     "COUPON_COUNT_EMPTY",
+                     "COUNT_EMPTY",
                      "FILE_UPLOAD_FAILED",
                      "POINT_NOT_ENOUGH",
                      "DISAVAILABLE_MISSION",
@@ -475,13 +475,15 @@
                   "type":"string"
                },
                "game":{
-                  "type":"string"
+                  "type":"string",
+                  "enum":[
+                     "LOL"
+                  ]
                },
                "type":{
                   "type":"string",
                   "enum":[
-                     "WINNING_STREAK",
-                     "CUMULATIVE_WIN"
+                     "WINNING_STREAK"
                   ]
                },
                "reward":{
@@ -515,13 +517,13 @@
          "PageMissionResponse":{
             "type":"object",
             "properties":{
-               "totalPages":{
-                  "type":"integer",
-                  "format":"int32"
-               },
                "totalElements":{
                   "type":"integer",
                   "format":"int64"
+               },
+               "totalPages":{
+                  "type":"integer",
+                  "format":"int32"
                },
                "first":{
                   "type":"boolean"
@@ -546,12 +548,12 @@
                "sort":{
                   "$ref":"#/components/schemas/SortObject"
                },
-               "pageable":{
-                  "$ref":"#/components/schemas/PageableObject"
-               },
                "numberOfElements":{
                   "type":"integer",
                   "format":"int32"
+               },
+               "pageable":{
+                  "$ref":"#/components/schemas/PageableObject"
                },
                "empty":{
                   "type":"boolean"
@@ -568,6 +570,12 @@
                "sort":{
                   "$ref":"#/components/schemas/SortObject"
                },
+               "paged":{
+                  "type":"boolean"
+               },
+               "unpaged":{
+                  "type":"boolean"
+               },
                "pageNumber":{
                   "type":"integer",
                   "format":"int32"
@@ -575,12 +583,6 @@
                "pageSize":{
                   "type":"integer",
                   "format":"int32"
-               },
-               "paged":{
-                  "type":"boolean"
-               },
-               "unpaged":{
-                  "type":"boolean"
                }
             }
          },
@@ -590,10 +592,10 @@
                "empty":{
                   "type":"boolean"
                },
-               "sorted":{
+               "unsorted":{
                   "type":"boolean"
                },
-               "unsorted":{
+               "sorted":{
                   "type":"boolean"
                }
             }
