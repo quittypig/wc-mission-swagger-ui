@@ -6,7 +6,7 @@
    },
    "servers":[
       {
-         "url":"http://localhost:3002",
+         "url":"https://dev-api.worldclass.gg",
          "description":"Generated server url"
       }
    ],
@@ -41,38 +41,8 @@
                "required":true
             },
             "responses":{
-               "401":{
-                  "description":"Unauthorized",
-                  "content":{
-                     "*/*":{
-                        "schema":{
-                           "$ref":"#/components/schemas/ApiResponseObject"
-                        }
-                     }
-                  }
-               },
-               "500":{
-                  "description":"Internal Server Error",
-                  "content":{
-                     "*/*":{
-                        "schema":{
-                           "$ref":"#/components/schemas/ApiResponseObject"
-                        }
-                     }
-                  }
-               },
                "400":{
                   "description":"Bad Request",
-                  "content":{
-                     "*/*":{
-                        "schema":{
-                           "$ref":"#/components/schemas/ApiResponseObject"
-                        }
-                     }
-                  }
-               },
-               "409":{
-                  "description":"Conflict",
                   "content":{
                      "*/*":{
                         "schema":{
@@ -93,6 +63,36 @@
                },
                "404":{
                   "description":"Not Found",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "500":{
+                  "description":"Internal Server Error",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "409":{
+                  "description":"Conflict",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "401":{
+                  "description":"Unauthorized",
                   "content":{
                      "*/*":{
                         "schema":{
@@ -134,38 +134,8 @@
                }
             ],
             "responses":{
-               "401":{
-                  "description":"Unauthorized",
-                  "content":{
-                     "*/*":{
-                        "schema":{
-                           "$ref":"#/components/schemas/ApiResponseObject"
-                        }
-                     }
-                  }
-               },
-               "500":{
-                  "description":"Internal Server Error",
-                  "content":{
-                     "*/*":{
-                        "schema":{
-                           "$ref":"#/components/schemas/ApiResponseObject"
-                        }
-                     }
-                  }
-               },
                "400":{
                   "description":"Bad Request",
-                  "content":{
-                     "*/*":{
-                        "schema":{
-                           "$ref":"#/components/schemas/ApiResponseObject"
-                        }
-                     }
-                  }
-               },
-               "409":{
-                  "description":"Conflict",
                   "content":{
                      "*/*":{
                         "schema":{
@@ -186,6 +156,36 @@
                },
                "404":{
                   "description":"Not Found",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "500":{
+                  "description":"Internal Server Error",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "409":{
+                  "description":"Conflict",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "401":{
+                  "description":"Unauthorized",
                   "content":{
                      "*/*":{
                         "schema":{
@@ -249,38 +249,8 @@
                }
             ],
             "responses":{
-               "401":{
-                  "description":"Unauthorized",
-                  "content":{
-                     "*/*":{
-                        "schema":{
-                           "$ref":"#/components/schemas/ApiResponseObject"
-                        }
-                     }
-                  }
-               },
-               "500":{
-                  "description":"Internal Server Error",
-                  "content":{
-                     "*/*":{
-                        "schema":{
-                           "$ref":"#/components/schemas/ApiResponseObject"
-                        }
-                     }
-                  }
-               },
                "400":{
                   "description":"Bad Request",
-                  "content":{
-                     "*/*":{
-                        "schema":{
-                           "$ref":"#/components/schemas/ApiResponseObject"
-                        }
-                     }
-                  }
-               },
-               "409":{
-                  "description":"Conflict",
                   "content":{
                      "*/*":{
                         "schema":{
@@ -301,6 +271,36 @@
                },
                "404":{
                   "description":"Not Found",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "500":{
+                  "description":"Internal Server Error",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "409":{
+                  "description":"Conflict",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "401":{
+                  "description":"Unauthorized",
                   "content":{
                      "*/*":{
                         "schema":{
@@ -368,7 +368,7 @@
                      "NOT_ADULT",
                      "NOT_ALLOWED_AGE_GAP",
                      "NOT_PCBANG_OWNER",
-                     "ALREADY_STOP_COUPON",
+                     "ALREADY_STOP",
                      "NOT_AVAILABLE_COUPON",
                      "ALREADY_SHARED_COUPON",
                      "ALREADY_ISSUED_COUPON",
@@ -517,13 +517,13 @@
          "PageMissionResponse":{
             "type":"object",
             "properties":{
-               "totalElements":{
-                  "type":"integer",
-                  "format":"int64"
-               },
                "totalPages":{
                   "type":"integer",
                   "format":"int32"
+               },
+               "totalElements":{
+                  "type":"integer",
+                  "format":"int64"
                },
                "first":{
                   "type":"boolean"
@@ -548,12 +548,12 @@
                "sort":{
                   "$ref":"#/components/schemas/SortObject"
                },
+               "pageable":{
+                  "$ref":"#/components/schemas/PageableObject"
+               },
                "numberOfElements":{
                   "type":"integer",
                   "format":"int32"
-               },
-               "pageable":{
-                  "$ref":"#/components/schemas/PageableObject"
                },
                "empty":{
                   "type":"boolean"
@@ -570,12 +570,6 @@
                "sort":{
                   "$ref":"#/components/schemas/SortObject"
                },
-               "paged":{
-                  "type":"boolean"
-               },
-               "unpaged":{
-                  "type":"boolean"
-               },
                "pageNumber":{
                   "type":"integer",
                   "format":"int32"
@@ -583,6 +577,12 @@
                "pageSize":{
                   "type":"integer",
                   "format":"int32"
+               },
+               "paged":{
+                  "type":"boolean"
+               },
+               "unpaged":{
+                  "type":"boolean"
                }
             }
          },
@@ -592,10 +592,10 @@
                "empty":{
                   "type":"boolean"
                },
-               "unsorted":{
+               "sorted":{
                   "type":"boolean"
                },
-               "sorted":{
+               "unsorted":{
                   "type":"boolean"
                }
             }
