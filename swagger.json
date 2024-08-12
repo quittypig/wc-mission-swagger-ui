@@ -41,8 +41,38 @@
                "required":true
             },
             "responses":{
+               "401":{
+                  "description":"Unauthorized",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "500":{
+                  "description":"Internal Server Error",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
                "400":{
                   "description":"Bad Request",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "409":{
+                  "description":"Conflict",
                   "content":{
                      "*/*":{
                         "schema":{
@@ -63,36 +93,6 @@
                },
                "404":{
                   "description":"Not Found",
-                  "content":{
-                     "*/*":{
-                        "schema":{
-                           "$ref":"#/components/schemas/ApiResponseObject"
-                        }
-                     }
-                  }
-               },
-               "500":{
-                  "description":"Internal Server Error",
-                  "content":{
-                     "*/*":{
-                        "schema":{
-                           "$ref":"#/components/schemas/ApiResponseObject"
-                        }
-                     }
-                  }
-               },
-               "409":{
-                  "description":"Conflict",
-                  "content":{
-                     "*/*":{
-                        "schema":{
-                           "$ref":"#/components/schemas/ApiResponseObject"
-                        }
-                     }
-                  }
-               },
-               "401":{
-                  "description":"Unauthorized",
                   "content":{
                      "*/*":{
                         "schema":{
@@ -134,8 +134,38 @@
                }
             ],
             "responses":{
+               "401":{
+                  "description":"Unauthorized",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "500":{
+                  "description":"Internal Server Error",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
                "400":{
                   "description":"Bad Request",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "409":{
+                  "description":"Conflict",
                   "content":{
                      "*/*":{
                         "schema":{
@@ -164,36 +194,6 @@
                      }
                   }
                },
-               "500":{
-                  "description":"Internal Server Error",
-                  "content":{
-                     "*/*":{
-                        "schema":{
-                           "$ref":"#/components/schemas/ApiResponseObject"
-                        }
-                     }
-                  }
-               },
-               "409":{
-                  "description":"Conflict",
-                  "content":{
-                     "*/*":{
-                        "schema":{
-                           "$ref":"#/components/schemas/ApiResponseObject"
-                        }
-                     }
-                  }
-               },
-               "401":{
-                  "description":"Unauthorized",
-                  "content":{
-                     "*/*":{
-                        "schema":{
-                           "$ref":"#/components/schemas/ApiResponseObject"
-                        }
-                     }
-                  }
-               },
                "200":{
                   "description":"OK",
                   "content":{
@@ -213,7 +213,7 @@
                "[미션]"
             ],
             "summary":"미션 조회 / 권한: [피시방]",
-            "description":"\n            - Token이 없을 경우 pcbangId 필수\n            - Token이 있을 경우 pcbangId는 사용되지 않음\n            - response.body.content[].data: type에 따라 다르게 내려감.\n                ex: WINNING_STREAK(연승): { \"win\": 1 }\n        ",
+            "description":"\n            - Token이 없을 경우 pcbangId 필수\n            - Token이 있을 경우 pcbangId는 사용되지 않음\n            - response.body.content[].data: type에 따라 다르게 내려감.\n                ex: CUMULATIVE_WIN(누적): { \"win\": 1 }\n        ",
             "operationId":"getMission",
             "parameters":[
                {
@@ -249,8 +249,38 @@
                }
             ],
             "responses":{
+               "401":{
+                  "description":"Unauthorized",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "500":{
+                  "description":"Internal Server Error",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
                "400":{
                   "description":"Bad Request",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "409":{
+                  "description":"Conflict",
                   "content":{
                      "*/*":{
                         "schema":{
@@ -271,36 +301,6 @@
                },
                "404":{
                   "description":"Not Found",
-                  "content":{
-                     "*/*":{
-                        "schema":{
-                           "$ref":"#/components/schemas/ApiResponseObject"
-                        }
-                     }
-                  }
-               },
-               "500":{
-                  "description":"Internal Server Error",
-                  "content":{
-                     "*/*":{
-                        "schema":{
-                           "$ref":"#/components/schemas/ApiResponseObject"
-                        }
-                     }
-                  }
-               },
-               "409":{
-                  "description":"Conflict",
-                  "content":{
-                     "*/*":{
-                        "schema":{
-                           "$ref":"#/components/schemas/ApiResponseObject"
-                        }
-                     }
-                  }
-               },
-               "401":{
-                  "description":"Unauthorized",
                   "content":{
                      "*/*":{
                         "schema":{
@@ -483,7 +483,7 @@
                "type":{
                   "type":"string",
                   "enum":[
-                     "WINNING_STREAK"
+                     "CUMULATIVE_WIN"
                   ]
                },
                "reward":{
@@ -517,13 +517,13 @@
          "PageMissionResponse":{
             "type":"object",
             "properties":{
-               "totalPages":{
-                  "type":"integer",
-                  "format":"int32"
-               },
                "totalElements":{
                   "type":"integer",
                   "format":"int64"
+               },
+               "totalPages":{
+                  "type":"integer",
+                  "format":"int32"
                },
                "first":{
                   "type":"boolean"
@@ -548,12 +548,12 @@
                "sort":{
                   "$ref":"#/components/schemas/SortObject"
                },
-               "pageable":{
-                  "$ref":"#/components/schemas/PageableObject"
-               },
                "numberOfElements":{
                   "type":"integer",
                   "format":"int32"
+               },
+               "pageable":{
+                  "$ref":"#/components/schemas/PageableObject"
                },
                "empty":{
                   "type":"boolean"
@@ -570,6 +570,12 @@
                "sort":{
                   "$ref":"#/components/schemas/SortObject"
                },
+               "paged":{
+                  "type":"boolean"
+               },
+               "unpaged":{
+                  "type":"boolean"
+               },
                "pageNumber":{
                   "type":"integer",
                   "format":"int32"
@@ -577,12 +583,6 @@
                "pageSize":{
                   "type":"integer",
                   "format":"int32"
-               },
-               "paged":{
-                  "type":"boolean"
-               },
-               "unpaged":{
-                  "type":"boolean"
                }
             }
          },
@@ -592,10 +592,10 @@
                "empty":{
                   "type":"boolean"
                },
-               "sorted":{
+               "unsorted":{
                   "type":"boolean"
                },
-               "unsorted":{
+               "sorted":{
                   "type":"boolean"
                }
             }
