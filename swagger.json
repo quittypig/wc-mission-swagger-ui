@@ -11,6 +11,98 @@
       }
    ],
    "paths":{
+      "/pcbang/mission":{
+         "post":{
+            "tags":[
+               "[PC방]"
+            ],
+            "summary":"PC방 미션 생성 / 권한: [카운터 IP]",
+            "description":"\n            request.body.type에 따라 request.body.data 타입을 맞추어 주어야함.\n                - request.body.type: CUMULATIVE_WIN => {\"win\":1}\n            request.body.reward.type에 따라 request.body.reward.value 타입을 맞추어 주어야함.\n                - request.body.reward.type: COUPON => request.body.reward.value: {\"time\": 3600, \"expiredDay\": 7}\n        ",
+            "operationId":"createMission",
+            "requestBody":{
+               "content":{
+                  "application/json":{
+                     "schema":{
+                        "$ref":"#/components/schemas/PcbangCreateMissionRequest"
+                     }
+                  }
+               },
+               "required":true
+            },
+            "responses":{
+               "403":{
+                  "description":"Forbidden",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "401":{
+                  "description":"Unauthorized",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "500":{
+                  "description":"Internal Server Error",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "400":{
+                  "description":"Bad Request",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "409":{
+                  "description":"Conflict",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "404":{
+                  "description":"Not Found",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseObject"
+                        }
+                     }
+                  }
+               },
+               "200":{
+                  "description":"OK",
+                  "content":{
+                     "*/*":{
+                        "schema":{
+                           "$ref":"#/components/schemas/ApiResponseCreateMissionDto"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
       "/mission/{missionId}/complete":{
          "post":{
             "tags":[
