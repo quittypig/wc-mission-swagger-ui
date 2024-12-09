@@ -402,6 +402,15 @@
             "operationId":"getTournaments",
             "parameters":[
                {
+                  "name":"pcbangId",
+                  "in":"query",
+                  "required":false,
+                  "schema":{
+                     "type":"string",
+                     "format":"uuid"
+                  }
+               },
+               {
                   "name":"status",
                   "in":"query",
                   "required":true,
